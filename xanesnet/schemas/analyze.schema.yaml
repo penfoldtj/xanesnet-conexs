@@ -1,0 +1,52 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: analyze.schema.yaml
+title: XANESNET analysis configuration
+type: object
+additionalProperties: false
+required:
+- selectors
+- collectors
+- aggregators
+- reporters
+- plotters
+$comment: Analysis configs are validated by validate_config_analyze(). All five component lists must be present. Selectors
+  are configured as one flat YAML list; runtime setup expands that list once per prediction reader. Empty selectors are valid
+  and create one implicit all-selector for each prediction reader.
+properties:
+  seed:
+    $ref: shared/value_types.schema.yaml#/$defs/nullableInteger
+    default: null
+    description: Optional top-level seed; absent values default to ``null`` before runtime use.
+  selectors:
+    type: array
+    items:
+      $ref: analysis/analysis.schema.yaml#/$defs/selector
+    default: []
+    description: Flat analysis selector configuration list. ``_setup_selectors`` instantiates this list for each prediction
+      reader, producing ``selectors[predictions_idx][selector_idx]`` at runtime; an empty list creates an implicit ``all``
+      selector for each prediction reader.
+  collectors:
+    type: array
+    items:
+      $ref: analysis/analysis.schema.yaml#/$defs/collector
+    default: []
+    description: Analysis collector configurations instantiated by ``CollectorRegistry`` in ``_setup_collectors``.
+  aggregators:
+    type: array
+    items:
+      $ref: analysis/analysis.schema.yaml#/$defs/aggregator
+    default: []
+    description: Analysis aggregator configurations instantiated by ``AggregatorRegistry`` in ``_setup_aggregators``.
+  reporters:
+    type: array
+    items:
+      $ref: analysis/analysis.schema.yaml#/$defs/reporter
+    default: []
+    description: Analysis reporter configurations instantiated by ``ReporterRegistry`` in ``_setup_reporters``.
+  plotters:
+    type: array
+    items:
+      $ref: analysis/analysis.schema.yaml#/$defs/plotter
+    default: []
+    description: Analysis plotter configurations instantiated by ``PlotterRegistry`` in ``_setup_plotters``.
+description: Analysis configuration validated by ``validate_config_analyze`` and consumed by ``core_analyze`` setup functions.
