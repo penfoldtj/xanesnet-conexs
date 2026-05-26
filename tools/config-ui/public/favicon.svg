@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+	<title id="title">XANESNET Config UI</title>
+	<desc id="desc">Rounded config document with an X-ray spectrum line.</desc>
+	<rect width="64" height="64" rx="14" fill="#0f172a" />
+	<path fill="#eff6ff" d="M20 13h18l10 10v28H20z" />
+	<path fill="#bfdbfe" d="M38 13v11h10z" />
+	<path fill="none" stroke="#2563eb" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M17 43h7l4-15 5 23 5-14h9" />
+	<path fill="none" stroke="#38bdf8" stroke-linecap="round" stroke-width="3" d="M24 22h9M24 29h5" />
+</svg>
