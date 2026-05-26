@@ -1,0 +1,16 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: loss_types.schema.yaml
+title: XANESNET loss value types
+$defs:
+  lossType:
+    type: string
+    enum:
+    - mse
+    - l1
+    - bce
+    - emd
+    - wcc
+    - specplus
+    - mkssim1d
+    description: Loss registry key accepted by ``LossRegistry.get``.
+description: Loss schemas backed by ``LossRegistry`` classes and loss constructor signatures.

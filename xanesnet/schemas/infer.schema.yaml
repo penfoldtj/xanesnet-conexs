@@ -1,0 +1,45 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: infer.schema.yaml
+title: XANESNET inference configuration
+type: object
+additionalProperties: false
+required:
+- datasource
+- dataset
+- inferencer
+$comment: User inference YAML is merged with the checkpoint signature before runtime validation. datasource, dataset, and
+  inferencer are supplied by the user; dataset_type, model, and strategy usually come from the checkpoint signature. Runtime
+  validation checks checkpoint conflicts, concrete model dimensions, and registry compatibility after merging.
+properties:
+  seed:
+    $ref: shared/value_types.schema.yaml#/$defs/nullableInteger
+    default: null
+    description: Optional top-level seed; absent values default to ``null`` before runtime use.
+  device:
+    type:
+    - string
+    - 'null'
+    default: cpu
+    description: Compute device; e.g., ``"cpu"``, ``"cuda:0"``; absent values default to ``"cpu"`` and are passed
+      to trainers or inferencers.
+  datasource:
+    $ref: datasources/datasources.schema.yaml#/$defs/datasource
+    description: Configuration section used by core setup code to instantiate ``DataSourceRegistry.get(datasource_type)``.
+  dataset:
+    $ref: datasets/datasets.schema.yaml#/$defs/datasetInferUser
+    description: Configuration section used by core setup code to instantiate and prepare ``DatasetRegistry.get(dataset_type)``.
+  model:
+    $ref: models/models.schema.yaml#/$defs/modelInfer
+    description: Optional in user-authored inference YAML because the checkpoint signature normally supplies it. After the
+      checkpoint-signature merge, inference rejects ``"auto"`` model values.
+  inferencer:
+    $ref: runners/inferencers.schema.yaml#/$defs/inferencer
+    description: Inference runner section; mutually exclusive with ``trainer``.
+  strategy:
+    $ref: strategies/strategies.schema.yaml#/$defs/strategy
+    description: Optional in user-authored inference YAML because the checkpoint signature normally supplies it. After the
+      checkpoint-signature merge, core setup instantiates ``StrategyRegistry.get(strategy_type)``.
+not:
+  required:
+  - trainer
+description: User-authored inference configuration used by the config UI before checkpoint-signature merge.

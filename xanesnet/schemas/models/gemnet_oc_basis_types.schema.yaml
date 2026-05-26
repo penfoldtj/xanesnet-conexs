@@ -1,0 +1,31 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: gemnet_oc_basis_types.schema.yaml
+title: XANESNET GemNet-OC basis value types
+$defs:
+  rbfName:
+    type: string
+    enum:
+    - gaussian
+    - spherical_bessel
+    - bernstein
+    description: Radial basis function name dispatched by ``RadialBasis``.
+  envelopeName:
+    type: string
+    enum:
+    - polynomial
+    - exponential
+    description: Envelope function name accepted by GemNet-OC radial basis configuration.
+  cbfName:
+    type: string
+    enum:
+    - gaussian
+    - spherical_harmonics
+    description: Circular basis function name dispatched by ``CircularBasisLayer``.
+  sbfName:
+    type: string
+    enum:
+    - spherical_harmonics
+    - legendre_outer
+    - gaussian_outer
+    description: Spherical basis function name dispatched by ``SphericalBasisLayer``.
+description: Model schemas backed by ``ModelRegistry`` classes and model constructor signatures.

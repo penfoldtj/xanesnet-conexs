@@ -1,0 +1,19 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: regularizer_types.schema.yaml
+title: XANESNET regularizer value types
+$defs:
+  regularizerType:
+    type: string
+    enum:
+    - none
+    - 'no'
+    - l1
+    - l2
+    description: Regularizer registry key accepted by ``RegularizerRegistry.get``.
+  regularizerTypeNoneOrNo:
+    type: string
+    enum:
+    - none
+    - 'no'
+    description: Aliases registered to the no-op regularizer.
+description: Regularizer schemas backed by ``RegularizerRegistry`` classes.
